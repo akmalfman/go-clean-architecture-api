@@ -1,4 +1,4 @@
-module first-project
+module github.com/akmalfsalman/go-clean-architecture-api
 
 go 1.25.3
 

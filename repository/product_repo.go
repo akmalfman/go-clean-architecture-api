@@ -2,8 +2,9 @@ package repository
 
 import (
 	"context"
-	"first-project/models"
 	"log"
+
+	"github.com/akmalfsalman/go-clean-architecture-api/models"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )

@@ -2,8 +2,9 @@ package service
 
 import (
 	"errors"
-	"first-project/models"
-	"first-project/repository"
+
+	"github.com/akmalfsalman/go-clean-architecture-api/models"
+	"github.com/akmalfsalman/go-clean-architecture-api/repository"
 )
 
 // ProductService adalah interface untuk logika bisnis produk

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"first-project/models"
+	"github.com/akmalfsalman/go-clean-architecture-api/models"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )

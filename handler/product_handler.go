@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"first-project/models"
-	"first-project/service"
+	"github.com/akmalfsalman/go-clean-architecture-api/models"
+	"github.com/akmalfsalman/go-clean-architecture-api/service"
 
 	"github.com/go-chi/chi/v5"
 )

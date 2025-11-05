@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"first-project/models"
-	"first-project/repository"
+	"github.com/akmalfsalman/go-clean-architecture-api/models"
+	"github.com/akmalfsalman/go-clean-architecture-api/repository"
 
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"

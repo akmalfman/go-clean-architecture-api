@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"os"
 
-	"first-project/handler"
-	"first-project/middleware"
-	"first-project/repository"
-	"first-project/service"
+	"github.com/akmalfsalman/go-clean-architecture-api/handler"
+	"github.com/akmalfsalman/go-clean-architecture-api/middleware"
+	"github.com/akmalfsalman/go-clean-architecture-api/repository"
+	"github.com/akmalfsalman/go-clean-architecture-api/service"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
