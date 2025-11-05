@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  # Ini nama service kita, bebas
+  db:
+    # Kita pakai image Postgres versi 16
+    image: postgres:16
+    # Selalu restart jika mati
+    restart: always
+    # Environment variables untuk setting Postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db_latihan
+    # 'volumes' ini agar data-nya nggak hilang
+    # saat kontainer-nya dimatikan
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Mapping port: port 5432 di laptop
+    # akan nyambung ke port 5432 di dalam kontainer
+    ports:
+      - "5432:5432"
+
+# Definisikan volume yang kita sebut di atas
+volumes:
+  postgres_data:
