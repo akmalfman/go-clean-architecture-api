@@ -10,6 +10,7 @@ import (
 // ProductService adalah interface untuk logika bisnis produk
 type ProductService interface {
 	GetAllProducts() ([]models.Product, error)
+	GetProductByID(id int) (models.Product, error)
 	CreateProduct(product models.Product) (models.Product, error)
 	UpdateProduct(id int, product models.Product) (models.Product, error)
 	DeleteProduct(id int) error
@@ -66,4 +67,8 @@ func (s *productService) DeleteProduct(id int) error {
 		return errors.New("produk tidak ditemukan")
 	}
 	return nil
+}
+
+func (s *productService) GetProductByID(id int) (models.Product, error) {
+	return s.repo.FindByID(id)
 }

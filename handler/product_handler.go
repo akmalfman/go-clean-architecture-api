@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/akmalfsalman/go-clean-architecture-api/models"
 	"github.com/akmalfsalman/go-clean-architecture-api/service"
@@ -112,4 +113,25 @@ func (h *ProductHandler) respondWithJSON(w http.ResponseWriter, code int, payloa
 	if payload != nil {
 		json.NewEncoder(w).Encode(payload)
 	}
+}
+
+func (h *ProductHandler) HandleGetProductByID(w http.ResponseWriter, r *http.Request) {
+	id, err := h.parseID(r) // Kita pakai ulang helper parseID
+	if err != nil {
+		h.respondWithError(w, http.StatusBadRequest, "ID produk tidak valid")
+		return
+	}
+
+	product, err := h.service.GetProductByID(id)
+	if err != nil {
+		// Cek jika error 'no rows'
+		if strings.Contains(err.Error(), "no rows in result set") {
+			h.respondWithError(w, http.StatusNotFound, "Produk tidak ditemukan")
+		} else {
+			h.respondWithError(w, http.StatusInternalServerError, "Gagal mengambil produk")
+		}
+		return
+	}
+
+	h.respondWithJSON(w, http.StatusOK, product)
 }

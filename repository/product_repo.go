@@ -12,6 +12,7 @@ import (
 type ProductRepository interface {
 	SetupTable()
 	FindAll() ([]models.Product, error)
+	FindByID(id int) (models.Product, error)
 	Save(product models.Product) (int, error)
 	Update(id int, product models.Product) (int, error)
 	Delete(id int) (int64, error)
@@ -89,4 +90,11 @@ func (r *productRepository) Delete(id int) (int64, error) {
 		return 0, err
 	}
 	return ct.RowsAffected(), nil
+}
+
+func (r *productRepository) FindByID(id int) (models.Product, error) {
+	query := "SELECT id, name, price FROM products WHERE id = $1"
+	var p models.Product
+	err := r.db.QueryRow(context.Background(), query, id).Scan(&p.ID, &p.Name, &p.Price)
+	return p, err // Akan error jika 'no rows'
 }

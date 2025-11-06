@@ -13,6 +13,7 @@ import (
 	"github.com/akmalfsalman/go-clean-architecture-api/service"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -45,14 +46,21 @@ func main() {
 
 	r := chi.NewRouter()
 
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
+		AllowCredentials: true,
+	}))
+
 	authHandler.RegisterRoutes(r)
 
 	r.Get("/", productHandler.HandleHome)
 	r.Get("/products", productHandler.HandleGetProducts)
+	r.Get("/products/{id}", productHandler.HandleGetProductByID)
 
 	r.Group(func(r chi.Router) {
 		r.Use(middleware.JwtAuthMiddleware)
-
 		r.Post("/products", productHandler.HandleCreateProduct)
 		r.Put("/products/{id}", productHandler.HandleUpdateProduct)
 		r.Delete("/products/{id}", productHandler.HandleDeleteProduct)
