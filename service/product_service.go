@@ -7,7 +7,6 @@ import (
 	"github.com/akmalfsalman/go-clean-architecture-api/repository"
 )
 
-// ProductService adalah interface untuk logika bisnis produk
 type ProductService interface {
 	GetAllProducts() ([]models.Product, error)
 	GetProductByID(id int) (models.Product, error)
@@ -16,23 +15,19 @@ type ProductService interface {
 	DeleteProduct(id int) error
 }
 
-// productService adalah implementasi dari ProductService
 type productService struct {
 	repo repository.ProductRepository
 }
 
-// NewProductService membuat instance baru dari productService
 func NewProductService(repo repository.ProductRepository) ProductService {
 	return &productService{repo: repo}
 }
 
 func (s *productService) GetAllProducts() ([]models.Product, error) {
-	// Di sini bisa ada logika lain, misal: caching
 	return s.repo.FindAll()
 }
 
 func (s *productService) CreateProduct(product models.Product) (models.Product, error) {
-	// Ini adalah Logika Bisnis (Validasi)
 	if product.Name == "" || product.Price <= 0 {
 		return models.Product{}, errors.New("nama dan harga tidak boleh kosong/nol")
 	}
